@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/cart.css">
+    <script src="../js/jquery1.12.4.min.js"></script>
+    <script src="../js/cart.js"></script>
 </head>
 <body> 
     <!-- <script src="../js/jquery1.12.4.min.js"></script> -->
@@ -31,6 +33,7 @@
 
 <section class="cart">
     <div class="shopcart cantainer">
+       
       <!-- 购物车位置 -->
       <table>
         <thead id="th">
@@ -38,25 +41,27 @@
             <td><input type="checkbox" class="checkall" checked />全选</td>
             <td>商品Id</td>
             <td>商品名称</td>
-            <td>单价</td>
             <td>数量</td>
+            <td>单价</td>
             <td>小计</td>
             <td>操作</td>
           </tr>
         </thead>
+        <h2>没有更多商品了</h2>
         <tbody id="tb">
-             <!-- <tr>
+             <tr>
                       <td><input type="checkbox" class="checked"></td>
-                      <td><img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1496833357.9528722.jpg?thumb=1&w=80&h=80" alt="">手机USB micro 数据线 白色</td>
-                      <td>9.9元</td>
+                      <td><img style="width: 80px;height: 80px;" src="../img/produce.jpg" alt=""></td>
+                      <td>Redmi 9A</td>
                       <td><div><a class="les">-</a><input type="text" value="1"><a class="add">+</a></div></td>
-                      <td><i class="small">9.9</i>元</td>
+                      <td><i class="small">999</i>元</td>
+                      <td>&nbsp;</td>
                       <td class="deletemsg">x</td>
-                  </tr> -->
+                  </tr> 
         </tbody>
         <tfoot id="tf">
 			<tr>
-				<td colspan="3">合计: <span id="sum">30</span></td>
+				<td colspan="3">合计: <span id="sum">999</span>元</td>
 			</tr>
 		</tfoot>
       </table>
