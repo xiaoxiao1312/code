@@ -68,169 +68,163 @@
     text-align: center;
     color: #666;
 }
-.page-main{
-    padding: 38px 0;
-    background-color: #f5f5f5;
-}
-.container{
-    width: 1226px;
-    margin:0 auto;
-}
-.containe h2{
-    font-size: 36px;
-    color: #666;
-}
-.price-tips{
-    text-align: right;
-    font-size: 14px;
-    color: rgba(0, 0, 0, .54);
-    line-height: 20px;
-    margin-bottom: 13px;
-}
-.tip{
-    display: inline-block;
-}
-.tip>span{
-    color: #ff6700;
-    margin-left: 2px;
-}
-.tip>a{
-    color: rgba(0, 0, 0, .87);
-    margin-left: 12px;
-}
-.cart-goods-list{
-    background-color: #fff;
-}
-.list-head{
-    height: 70px;
-    line-height: 70px;
-    padding-right: 26px;
-    color: #424242;
-}
-
-.col{
-    float: left;
-    display: table-cell;
-    vertical-align: middle;
-}
-.col-check{
-    width: 110px;
-   
-}
-.col-check>i{
-    display: inline-block;
-    width: 18px;
-    height: 16px;
-    margin: 0 18px 0 20px;
-    border: 1px solid #e0e0e0;
-    line-height: 18px;
-    font-size: 20px;
+/* ===============购物车============= */
+.cart {
+    background: #f5f5f5;
+    min-width: 1266px;
+  }
+  
+  .shopcart {
+    min-height: 200px;
+    /* background: #ffffff; */
+    /* margin-bottom: 50px; */
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .shopcart table {
+    background: #ffffff;
+    width: 100%;
     text-align: center;
-    vertical-align: middle;
-    position: relative;
-    top: -1px;
-    cursor: pointer;
-    background-color: #ff6700;
-    color: #fff;
-}
-.col-img{
-    width: 120px;
-}
-.col-name{
-    width: 380px;
-    height: 70px;
-}
-.col-price{
-    width: 140px;
-    height: 70px;
-    padding-right: 18px;
-    text-align: center;
-    color: #424242;
-}
-.col-num{
-    width: 150px;
-    text-align: center;
-    color: #424242;
-}
-.col-total{
-    width: 120px;
-    padding-right: 81px;
-    text-align: right;
-}
-.col-action{
-    float: right;
-    width: 80px;
-    text-align: center;
-}
-
-.item-box{
-    padding: 15px 26px 15px 0;
-    border-top: 1px solid #e0e0e0;
-}
-
-.col-num a{
-    float: left;
-    width: 30px;
-    height: 38px;
-    line-height: 38px;
-    color: #757575;
-    font-size: 20px;
-    transition: all .3s;
-}
-.goods-num{
-    float: left;
-    width: 72px;
-    height: 38px;
-    line-height: 38px;
-    color: #424242;
-    font-size: 16px;
-    text-align: center;
-}
-
-.cart-bar{
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 20px;
+  }
+  .allprice {
+    /* background-color: aqua; */
+    background: #ffffff;
     height: 50px;
-    text-align: right;
-    background-color: #fff;
-    position: relative;
-    margin-top: 20px;
-}
-.section-left{
-    float: left;
-}
-.back-shopping{
-    line-height: 50px;
-    margin-left: 32px;
-}
-.cart-total{
-    margin-left: 16px;
-    margin-left: 16px;
-    border-left: 1px solid #eee;
-    color: #757575;
-}
-.cart-total i{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .allprice span:nth-child(1) {
+    margin-left: 15px;
+  }
+  .allprice div:nth-child(2) {
     color: #ff6700;
-}
-
-.total-price{
-    height:50px;
-    padding-left: 13px;
-    color: #ff6700;
-    float: right;
-}
-.total-price>em{
-    font-size:30px;
-}
-.total-price a{
-    width: 200px;
-    height: 48px;
-    line-height: 48px;
+    height: 100%;
     font-size: 18px;
-    margin-left: 50px;
-    text-align: center;
-    display: inline-block;
+  }
+  .allprice div:nth-child(2) button {
+    height: 100%;
     background-color: #ff6700;
-    color: #fff;
-}
+    color: #ffffff;
+    width: 200px;
+    margin-left: 50px;
+    outline: none;
+    border: none;
+  }
+  /* .shopcart table thead tr */
+  
+  .shopcart table thead td {
+    height: 70px;
+  }
+  .shopcart table tbody tr td:nth-child(3) {
+    text-align: left;
+    width: 400px;
+  }
+  .shopcart table tbody tr td:nth-child(3) img {
+    padding-left: 100px;
+    width: 80px;
+    height: 80px;
+  }
+  .shopcart table tbody tr td:nth-child(5) {
+    text-align: center;
+    /* border: 1px solid #cccccc; */
+  }
+  .shopcart table tbody tr td:nth-child(5) > div {
+    width: 150px;
+    margin: 0 auto;
+    border: 1px solid #cccccc;
+  }
+  .shopcart table tbody tr td:nth-child(5) input {
+    width: 74px;
+    height: 32px;
+    border: 0;
+    text-align: center;
+  }
+  .shopcart table tbody tr td:nth-child(5) a {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 38px;
+    font-size: 18px;
+  }
+  .shopcart table tbody tr td:nth-child(5) a:hover {
+    background: #cccccc;
+  }
+  .shopcart table tbody tr td:nth-child(7) i {
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    color: #757575;
+  }
+  .shopcart table tbody tr td:nth-child(7) i:hover {
+    border-radius: 50%;
+    background-color: #e53935;
+  }
+  body {
+    position: relative;
+  }
+  table {
+    width: 1200px;
+    border: solid 0.5px #ccc;
+    border-spacing: 0;
+    margin-top: 10px;
+  }
+  
+  table tr td {
+    border: solid 1px #ccc;
+  }
+  
+  #th,
+  #tb,
+  #tf {
+    display: none;
+  }
+  .canve {
+    display: none;
+    position: absolute;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #cccccc;
+  }
+  .apply {
+    display: none;
+    position: absolute;
+    /* left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .apply .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .shopcartbox{
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+   justify-content: center;
+  }
+  img {
+    width: 150px;
+    height: 150px;
+    vertical-align: middle;
+  }
+
+
 .recommend-title{
     position: relative;
     margin-top: 60px;
@@ -303,7 +297,7 @@
     background-color: #ff6700;
     color: #fff;
 }
-.recommend-action .btn{
+.btn{
     width: 120px;
     border-color: #ff6700;
     background:#fff;

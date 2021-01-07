@@ -11,129 +11,8 @@
     <link rel="stylesheet" href="../css/cart.css">
 </head>
 <body> 
-    <script src="../js/jquery1.12.4.min.js"></script>
-    <script>
-        // 不是所有人都能进购物车，只有登录或者注册成功的人才能进入购物
-        // if(localStorage.getItem('name')){
-        //     // 如果本地存储有name属性，说明登录或注册过
-        //     $('h1').html(localStorage.getItem('name')+"的购物车")
-        // }else{
-        //     location.href = "./index.html"
-        // }
-         // 点击加入购物车
-         $('.btn').click(function(){
-            $.ajax({
-                url:"../interface/add.php",
-                data:{
-                    product_id:$('.btn').data('id'),
-                    product_name:$('.btn').data('name'),
-                    product_img:$('.btn').data('img'),
-                    product_price:$('.btn').data('price'),
-                    product_num:$('.btn').data('num'),
-                    product_total:$('.btn').data('total')
-                },
-                dataType:"json",
-                success:function(res){
-                    if(res.code===1){
-                        alert('商品添加成功')
-                    }
-                }
-                
-            })
-        })
-        //  1 购物车页面一打开就要展示该用户的购物车商品列表
-        showList()
-        function showList(){
-            $.ajax({
-                url:"../interface/showlist.php",
-                dataType:"json",
-                success:function(res){
-                    if(res.code === 1 ){
-                        $('.item-box').empty(); 
-                        var list = res.data;
-                        if(list.length<1){
-                            $('h2').show();
-                            $('.cart-wrap').hide();
-                            return;
-                        }
-                        $('h2').hide();
-                        $('.cart-wrap').show();
-                        $.each(list,function(index,product){
-                        $('.item-box').append(`<div class="item-row clearfix">
-                        <div class="col col-check"><i>√</i></div>
-                        <div class="col col-img"><a href="produce.html"><img style="width:120px;height:120px;" src="${product.product_img}"></div>
-                        <div class="col col-name"><a href="#">${product.product_name}</a></div>
-                        <div class="col col-price">${product.product_price}</div>
-                        <div class="col col-num">
-                            <a href="#"><i>-</i></a>
-                            <input type="text" autocomplete="off" class="goods-num" value="${product.product_num}">
-                             <a href="#"><i>+</i></a>
-                        </div>
-                        <div class="col col-total">${product.product_total}</div>
-                        <div class="col col-action"><a href="#" title="删除" class="del"><i>X</i></a></div>
-                    </div>
-                </div>
-                 `)
-                        })
-                    }else{
-                        $('h2').show();
-                        $('.cart-wrap').hide();
-                    }
-                }
-            })
-        }
-
-        // 2 用户点击+或者-可以修改当前商品的数量
-        $('.item-box').on('click','.add',function(){
-            // 用户点击+
-            var that = $(this);
-            $.ajax({
-                url:"../interface/update.php",
-                data:{
-                    type:'add',
-                    id:that.parents('.item-row').children().eq(4).html()
-                },
-                dataType:"json",
-                success:function(res){
-                    if(res.code==1){
-                        that.next().html(parseInt(that.next().html())+1)
-                    }
-                }
-            })
-        })
-        $('.item-box').on('click','.cut',function(){
-            // 用户点击-
-            $.ajax({
-                url:"../interface/update.php",
-                data:{
-                    type:'cut',
-                    id:that.parents('.item-row').children().eq(4).html()
-                },
-                dataType:"json",
-                success:function(res){
-                    if(res.code==1){
-                        that.next().html(parseInt(that.next().html())+1)
-                    }
-                }
-            })
-        })
-        // 3 用户点击删除可以删除当前商品,删除完成后要重新渲染table/h2
-        $('.item-box').on('click','.del',function(){
-            var that = $(this);
-            $.ajax({
-                url:"../interface/del.php",
-                data:{
-                    id:that.parents('.item-box').children().eq(0).html()
-                },
-                dataType:"json",
-                success:function(res){
-                    if(res.code===1){
-                        showList();
-                    }
-                }
-            })
-        })
- </script>
+    <!-- <script src="../js/jquery1.12.4.min.js"></script> -->
+    <script src="../js/cart.js"></script>
 <header class="site-header">
     <div class="container">
         <div class="header-logo">
@@ -143,161 +22,135 @@
             <h2>我的购物车</h2>
             <p>温馨提示:产品是否购买成功，以最终下单为准哦，请尽快结算</p>
             <div class="topbar-info">
-            <a href="#">登录</a><span>|</span>
-            <a href="#">注册</a>
+            <a href="./login.html">登录</a><span>|</span>
+            <a href="./register.html">注册</a>
             </div>
         </div>
     </div>
 </header>
 
-<div class="page-main">
-    <div class="container">
-        <h2>您的购物车还是空的</h2>
-        <div class="cart-wrap">
-            <div class="cart-goods-list">
-                <div class="list-head clearfix">
-                    <div class="col col-check"><i>√</i>全选</div>
-                    <div class="col col-img">&nbsp;</div>
-                    <div class="col col-name">商品名称</div>
-                    <div class="col col-price">单价</div>
-                    <div class="col col-num">数量</div>
-                    <div class="col col-total">小计</div>
-                    <div class="col col-action">操作</div>
-                </div>
-                <div class="item-box">
-                    <div class="item-row clearfix">
-                        <div class="col col-check"><i>√</i></div>
-                        <div class="col col-img"><a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1496833357.9528722.jpg?thumb=1&w=80&h=80" alt=""></a></div>
-                        <div class="col col-name"><a href="#">手机USB micro 数据线 白色</a></div>
-                        <div class="col col-price">9.9元</div>
-                        <div class="col col-num">
-                            <a href="#" class="cut"><i>-</i></a>
-                            <input type="text" autocomplete="off" class="goods-num">
-                             <a href="#" class="add"><i>+</i></a>
-                        </div>
-                        <div class="col col-total">9.9元</div>
-                        <div class="col col-action"><a href="#" title="删除" class="del"><i>X</i></a></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cart-bar clearfix">
-                <div class="section-left"><a href="#" class="back-shopping">继续购物</a>
-                    <span class="cart-total">共</span><i>1</i> 件商品，已选择<i>1</i>件</div>
-                    <span class="total-price">
-                        合计<em>9.9</em>元
-                        <a href="#" class="btn-a">去结算</a>
-                    </span>
-                </div>
-        </div>
+<section class="cart">
+    <div class="shopcart cantainer">
+      <!-- 购物车位置 -->
+      <table>
+        <thead id="th">
+          <tr>
+            <td><input type="checkbox" class="checkall" checked />全选</td>
+            <td>商品Id</td>
+            <td>商品名称</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+            <td>操作</td>
+          </tr>
+        </thead>
+        <tbody id="tb">
+             <!-- <tr>
+                      <td><input type="checkbox" class="checked"></td>
+                      <td><img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1496833357.9528722.jpg?thumb=1&w=80&h=80" alt="">手机USB micro 数据线 白色</td>
+                      <td>9.9元</td>
+                      <td><div><a class="les">-</a><input type="text" value="1"><a class="add">+</a></div></td>
+                      <td><i class="small">9.9</i>元</td>
+                      <td class="deletemsg">x</td>
+                  </tr> -->
+        </tbody>
+        <tfoot id="tf">
+			<tr>
+				<td colspan="3">合计: <span id="sum">30</span></td>
+			</tr>
+		</tfoot>
+      </table>
+      <div class="allprice">
+        <span>共 <i>0</i> 件商品，已选择<i>0</i>件</span>
+        <div><strong>合计:<i>0</i>元</strong><button>去结算</button></div>
+      </div>
     </div>
-</div>
+  </section>
 
 <h2 class="recommend-title">
     <span>买购物车中商品的人还买了</span>
 </h2>
 <div class="recommend-bd container">
     <ul class="recommend-list clearfix">
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
+        <li class="recommend-item" data-id='1'>
+            <img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
             <div class="recommend-name">小米USB Type-C快速充电数据线</div>
             <div class="recommend-price">16.9元</div>
             <div class="recommend-tips">83.9万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eaf70e0e9905de6452f07b1f48fcc386.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
+        <li class="recommend-item" data-id='2'>
+            <img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eaf70e0e9905de6452f07b1f48fcc386.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
             <div class="recommend-name">Redmi充电宝 20000mAh</div>
             <div class="recommend-price">99元</div>
             <div class="recommend-tips">47.7万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+           
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
+        <li class="recommend-item"  data-id='3'>
+            <img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
             <div class="recommend-name">二合一数据线100cm</div>
             <div class="recommend-price">24.9元</div>
             <div class="recommend-tips">61.9万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4ba200ce7d0dcce36e31d7cd2ab3a858.jpg?thumb=1&w=180&h=180" alt="">
+        <li class="recommend-item"  data-id='4'>
+            <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4ba200ce7d0dcce36e31d7cd2ab3a858.jpg?thumb=1&w=180&h=180" alt="">
             <div class="recommend-name">小米USB-C TO USB-C数据线 </div>
             <div class="recommend-price">29元</div>
             <div class="recommend-tips">5.4万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            
+            <button class="btn recommend-action">加入购物车</button>
         </li>
         
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a2889874bdd0d3565f0dbf7bcc56abc1.jpg?thumb=1&w=180&h=180" alt="">
+        <li class="recommend-item"  data-id='5'>
+            <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a2889874bdd0d3565f0dbf7bcc56abc1.jpg?thumb=1&w=180&h=180" alt="">
             <div class="recommend-name">黑鲨游戏 Type-C 耳机</div>
             <div class="recommend-price">99元</div>
             <div class="recommend-tips">5484人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
+        <li class="recommend-item"  data-id='6'>
+            <img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0268f699b7f517fd445264f36850e6f2.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
             <div class="recommend-name">18W USB充电器快充版</div>
             <div class="recommend-price">29.9元</div>
             <div class="recommend-tips">69.4万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/8cdb665bcd1621477bc6d47913506a62.jpg?thumb=1&w=180&h=180" alt="">
+        <li class="recommend-item"  data-id='7'>
+           <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/8cdb665bcd1621477bc6d47913506a62.jpg?thumb=1&w=180&h=180" alt="">
             <div class="recommend-name">小米高清数据线-1.5米</div>
             <div class="recommend-price">29元</div>
             <div class="recommend-tips">6.4万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-miapp-a1/e8c1635c-a9dd-c2bc-d4d5-fd54ec708810.jpg?thumb=1&w=180&h=180" alt="">
+        <li class="recommend-item" data-id='8'>
+            <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-miapp-a1/e8c1635c-a9dd-c2bc-d4d5-fd54ec708810.jpg?thumb=1&w=180&h=180" alt="">
             <div class="recommend-name">小米 Type-C to AUDIO转接线</div>
             <div class="recommend-price">9.9元</div>
             <div class="recommend-tips">55.3万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+          
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
-            <a href="#"><img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-miapp-a1/3c114987-43d5-f6d3-d2f4-8b86dd90a55d.jpg?thumb=1&w=180&h=180" alt="">
+        <li class="recommend-item" data-id='9'>
+            <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-miapp-a1/3c114987-43d5-f6d3-d2f4-8b86dd90a55d.jpg?thumb=1&w=180&h=180" alt="">
             <div class="recommend-name">小米活塞耳机  </div>
             <div class="recommend-price">29元</div>
             <div class="recommend-tips">307.8万人好评</div>
-            </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+           
+            <button class="btn recommend-action">加入购物车</button>
         </li>
-        <li class="recommend-item">
+        <li class="recommend-item" data-id='10'>
             <a href="#"><img src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f9f3e968c9390f44a589afa48e92c6eb.jpg?thumb=1&w=180&h=180&f=webp&q=90" alt="">
             <div class="recommend-name">贝医生防蛀健齿牙膏</div>
             <div class="recommend-price">12.9元</div>
             <div class="recommend-tips">55.7万人好评</div>
             </a>
-            <div class="recommend-action">
-                <a href="#" class="btn">加入购物车</a>
-            </div>
+            <button class="btn recommend-action">加入购物车</button>
         </li>
     </ul>
 </div>

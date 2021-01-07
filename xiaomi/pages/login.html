@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/login.css">
     <script src="../js/login.js"></script>
+    <script src="../js/jquery1.12.4.min.js"></script>
 </head>
 <body>
     <header>
@@ -30,18 +31,17 @@
                         <a href="#">扫码登录</a>
                     </div>
                     <form class="input_box" action="./index.html">
-                        <input type="text" name="" id="username" placeholder="邮箱/手机号码/小米ID" value="935774819" oninput="checkUsername()">
+                        <input type="text" name="" id="username" placeholder="邮箱/手机号码/小米ID"  oninput="checkUsername()">
                         <span>用户名必须是6-13位的字母数字或者下划线</span>
-                        <input type="password" name="" id="password" placeholder="密码" value="123456789" oninput="checkPassword()">
+                        <input type="password" name="" id="password" placeholder="密码"  oninput="checkPassword()">
                         <span>密码必须是8-16的字母,数字或者特殊符号</span>
-                    
                     <div class="btn_big">
                         <a href="#"><input type="submit" id="login_button" value="登录"></a>
                     </div>
                 </form>
                     <div class="register_way">
-                    <a href="register.html">手机短信登录/注册</a>
-                    <a href="#">立即注册</a>
+                    <a href="./register.html" >手机短信登录/注册</a>
+                    <a href="./register.html" id="reg">立即注册</a>
                     <span>|</span>
                     <a href="#">忘记密码？</a>
                     </div>
@@ -69,42 +69,30 @@
         </div>
     </footer>
 
-
-    <script src="../js/cookie.js"></script>
+<script src="../api/login.json"></script>
+<scripts></scripts>
+    <script src="../js/cookie.min.js"></script>
     <script>
-        var un = getCookie('uername');
-        if(un){
-            location.href="./cart.html";
-        }
-        // 通过页面上绑定事件的方式获取用户填写的用户名和密码
-        var unInp = document.querySelectorAll('input')[0];//用户名输入框
-        var pwInp = document.querySelectorAll('input')[1];//密码输入框
-        var loginBtn = document.querySelectorAll('input')[2];//登录按钮
-        // 当用户点击登录时候
-        loginBtn.onclick = function(){
-            // 把用户名和密码传递给后端
-            // 创建ajax对象
-            var xhr = new XMLHttpRequest()
-            // 配置请求信息
-            xhr.open('POST','../interface/login.php');
-            // 接收响应
-            xhr.onload = function(){
-                // console.log(xhr.responseText)
-                // 登录成功跳转购物车，登录失败告诉用户
-                var json = JSON.parse(xhr.responseText);
-                if(json.code==1){
+
+    // 登录
+    $('#login_button').click(function(){
+        $.ajax({
+            url:"../api/login.json",
+            data:{
+                un:$('#uername').val(),
+                pw:$('#password').val()
+            },
+            dataType:"json",
+            success:function(res){
+                if(res.code==1){
+                    // 登录成功，信息添加到本地存储，方便同域名下的其他页面访问
+                    localStorage.setItem('name',$('#un').val());
                     location.href = "./cart.html"
-                }else{
-                    document.querySelector('h1').innerHTML = "登录失败"
                 }
             }
-            // 发送请求之前，设置请求头
-            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
-            // 发送请求
-            xhr.send(`username=${unInp.value}&password=${pwInp.value}`);// 回忆es6的模板字符串
-        }
+        })
+    })
 
-
-    </script>
+</script>
 </body>
 </html>

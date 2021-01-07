@@ -857,12 +857,7 @@ img{
     overflow: hidden;
 }
 /* 右边导航栏 */
-.static{
-    display:block;
-}
-.hover{
-    display: none;
-}
+
 .home-tool-bar{
     position: fixed;
     bottom: 70px;

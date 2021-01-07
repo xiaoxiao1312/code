@@ -70,16 +70,17 @@ function GetRTime(){
     })
     $('.home-tool-bar a:nth-child(2)').click(function(){
         // console.log("11111")
-        location.href='./regsiter.html' 
+        location.href='../pages/regsiter.html' 
     })
 
 
-    
+    $('.span16 .brick-list .brick-item').click(function(){
+        location.href="../pages/produce.html";
+    })
 
     
 
     //读取cookie,根据cookie状态判断是否进行登录状态展示
-    // class="signout"
     
     // let valname=cookie.get('username') ;
     // if(valname!=false){

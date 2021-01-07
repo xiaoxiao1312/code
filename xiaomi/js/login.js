@@ -1,11 +1,4 @@
-/*
-	 要求：
-	 	1 在输入用户名的过程中,实时监测你的用户名是否符合条件
-		2 在输入密码的的过程中,实时监测你的密码是否符合条件
-		3 当表单提交的时候,再次监测你的用户和密码是否符合条件,如果符合条件,就跳转页面,如果不符合,不能跳转页面
-	 */
-
-    var  spanArr = document.getElementsByTagName('span');
+var  spanArr = document.getElementsByTagName('span');
 	//1 书写监测用户名的函数
 	function checkUsername(){
 		//测试用户名的正则
@@ -40,4 +33,4 @@
 		}
 
 	}
-	 
+

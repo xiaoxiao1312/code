@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/register.css">
+   
+    <script src="../js/jquery1.12.4.min.js"></script>
+     <script src="../js/register.js"></script>
 </head>
 <body>
 <!-- 注册小米账号 -->
@@ -39,16 +42,52 @@
                     </div>
                 </div>
                 <div class="region-text">成功注册帐号后，国家/地区将不能被修改</div>
-                <h4 class="number">手机号码</h4> 
-                <input type="number" id="phone" class="sr_top" placeholder="请输入手机号码">
-                <span>电话号码必须是11位的数字</span>
-                <input type="submit" class="btn-lj" value="立即注册">
+                <form class="input_box" action="./index.html">
+                    <input type="text" name="" id="username" placeholder="邮箱/手机号码/小米ID"  oninput="checkUsername()">
+                    <span>用户名必须是6-13位的字母数字或者下划线</span>
+                    <input type="password" name="" id="password" placeholder="密码"  oninput="checkPassword()">
+                    <span>密码必须是8-16的字母,数字或者特殊符号</span>
+                
+                <div class="btn_big">
+                    <a href="./login.html"><input type="submit" class="btn-lj" value="立即注册" id="res"></a>
+                </div>
+            </form>
+                
 
                 <div class="privacy_box">
                     <span>已阅读并同意:小米<a href="#">用户协议</a>和<a href="#">隐私政策</a></span>
                 </div>
             </div>
         </div>  
+    <script>
+           // 设置本地储存信息
+           localStorage.setItem("username", "xxx");
+            // 获取本地储存信息
+            // alert("username = " + localStorage.getItem("username"));
+             // 设置本地储存信息
+            localStorage.setItem("password", "12345678910");
+            // 获取本地储存信息
+            // alert("password = " + localStorage.getItem("password"));
+        // 注册
+    $('#reg').click(function(){
+        $.ajax({
+            url:"../api/login.json",
+            data:{
+                un:$('#uername').val(),
+                pw:$('#password').val()
+            },
+            dataType:'json',
+            success:function(res){
+                if(res.code==1){
+                    // 注册成功，信息添加到本地存储，方便同域名下的其他页面访问
+                    localStorage.setItem('name',$('#uername').val());
+                    localStorage.setItem('password',$('#password').val());
+                    location.href = "./cart.html"
+                }
+            }
+        })
+    })
+    </script>
 <!-- 底部 -->
     <footer>
         <div class="footer container">
